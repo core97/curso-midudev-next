@@ -28,3 +28,17 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+npm i eslint -D
+npx eslint --init -> para inicializar configuracion
+npx eslint . -> para ver los problemas de eslint 
+npx eslint --fix -> para arreglar los problemas que marca eslint
+
+crear un script en el package.json: "lint": "eslint . --fix"
+
+para arreglar la configuracion entre prettier y eslint:
+npm eslint-config-prettier -D
+Añadirlo como "extends" en .eslintrc.js
+npm i prettier -D
+crear prettierrc.json
