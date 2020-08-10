@@ -1,56 +1,62 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
+import { useState, useEffect } from 'react'
+import Head from 'next/head'
 
-import AppLayout from '../components/AppLayout';
-import Button from '../components/Button';
-import GitHub from '../components/Icons/Github';
-import { colors } from '../styles/theme';
+import AppLayout from 'components/AppLayout'
+import Button from 'components/Button'
+import GitHub from 'components/Icons/Github'
+import Avatar from 'components/Avatar'
+import Logo from 'components/Icons/Logo'
 
-import { loginWithGithub, onAuthStateChanged } from '../firebase/client';
+import { colors } from 'styles/theme'
+
+import { loginWithGithub, onAuthStateChanged } from 'firebase/client'
 
 export default function Home() {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState(undefined)
 
   useEffect(() => {
-    onAuthStateChanged(setUser);
-  }, []);
+    onAuthStateChanged(setUser)
+  }, [])
 
   const handleClick = () => {
     loginWithGithub()
       .then((user) => {
-        const { avatar, username, url } = user;
-        setUser(user);
+        const { avatar, username, url } = user
+        setUser(user)
 
-        console.log(user);
+        console.log(user)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
 
   return (
     <>
       <Head>
         <title>devter</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <AppLayout>
         <section>
-          <img src='/devter-logo.png' />
+          <Logo width="100" />
           <h1>Devter</h1>
           <h2>Talk about development with developers</h2>
           <div>
             {user === null && (
               <Button onClick={handleClick}>
-                <GitHub fill='#fff' width='24px' height='24px' />
+                <GitHub fill="#fff" width="24px" height="24px" />
                 Login with Github
               </Button>
             )}
             {user && user.avatar && (
               <div>
-                <img src={user.avatar} />
-                <strong>{user.username}</strong>
+                <Avatar
+                  src={user.avatar}
+                  alt={user.username}
+                  text={user.username}
+                />
               </div>
             )}
           </div>
@@ -75,6 +81,7 @@ export default function Home() {
         h1 {
           color: ${colors.secondary};
           font-weight: 800;
+          font-size: 32px;
           margin-bottom: 16px;
         }
 
@@ -85,5 +92,5 @@ export default function Home() {
         }
       `}</style>
     </>
-  );
+  )
 }
